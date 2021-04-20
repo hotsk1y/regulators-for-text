@@ -7,8 +7,9 @@
   font-family: 'Roboto', sans-serif;
 }
 
+
 .item{
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
   padding: 20px;
   background-color: #ccc;
   display: flex;
@@ -19,4 +20,10 @@
 .item-text{
   width: 100%;
   margin-bottom: 20px;
+}
+
+.controls{
+  display: flex;
+  margin: 20px;
+  justify-content: space-between;
 }

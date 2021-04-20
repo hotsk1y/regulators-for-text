@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,34 +8,65 @@
   <title>Regulators for text</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-  <div class="item">
-    <div class="item-text">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde quia ducimus velit perspiciatis quas officiis. Inventore culpa a expedita quas?
+  <div class="items">
+    <div class="item">
+      <div class="item-text">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde quia ducimus velit perspiciatis quas officiis.
+        Inventore culpa a expedita quas?
+      </div>
     </div>
-  </div>
-  <div class="item">
-    <div class="item-text">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde quia ducimus velit perspiciatis quas officiis. Inventore culpa a expedita quas?
+    <div class="item">
+      <div class="item-text">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde quia ducimus velit perspiciatis quas officiis.
+        Inventore culpa a expedita quas?
+      </div>
     </div>
-  </div>
-  <div class="item">
-    <div class="item-text">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde quia ducimus velit perspiciatis quas officiis. Inventore culpa a expedita quas?
+    <div class="item">
+      <div class="item-text">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde quia ducimus velit perspiciatis quas officiis.
+        Inventore culpa a expedita quas?
+      </div>
     </div>
-  </div>
-  <div class="item">
-    <div class="item-text">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde quia ducimus velit perspiciatis quas officiis. Inventore culpa a expedita quas?
+    <div class="item">
+      <div class="item-text">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde quia ducimus velit perspiciatis quas officiis.
+        Inventore culpa a expedita quas?
+      </div>
     </div>
+    <div class="item">
+      <div class="item-text">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde quia ducimus velit perspiciatis quas officiis.
+        Inventore culpa a expedita quas?
+      </div>
+    </div>    
   </div>
-  <div class="item">
-    <div class="item-text">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde quia ducimus velit perspiciatis quas officiis. Inventore culpa a expedita quas?
+
+  <div class="controls">
+    <div>Size: <input type="number" min="8" max="72" class="font-size" value="14"></input></div>
+    <div>Color: <input type="color" value="#000000" class="font-color"></input></div>
+    <div>Weight:
+      <select id="weight">
+        <option value="lighter">Thin</option>
+        <option value="normal">Normal</option>
+        <option value="bold">Bold</option>
+      </select>
     </div>
+    <div>
+      Style:
+      <select id="style">
+        <option value="normal" selected>Normal</option>
+        <option value="italic">Italic</option>
+      </select>
+    </div>
+    <div>Letter Spacing: <input type="number" min="0" max="10" class="letter-spacing" value="0"></input></div>
+    <div>Line Heigh: <input type="number" min="5" max="72" class="line-height" value="14"></input></div>
+    <div><button id="reset">Reset</button></div>
   </div>
-  
+
   <script src="script.js"></script>
 </body>
+
 </html>

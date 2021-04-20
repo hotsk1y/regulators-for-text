@@ -1,251 +1,111 @@
-const item = document.querySelectorAll('.item')
-const itemText = document.querySelectorAll('.item-text')
-const localStorageItem = JSON.parse(localStorage.getItem('fontControls'))
-
 let data = JSON.parse(localStorage.getItem('fontControls'))
 
-const setDefauldData = (id) => {
-  data = []
-  localStorage.clear()
-  for (let i = 0; i < item.length; i++) {
-    const dataItem = {
-      id: i,
-      fontSize: '14px',
-      fontColor: '#000',
-      fontWeight: 'normal',
-      fontStyle: 'normal',
-      letterSpacing: '0px',
-      lineHeight: '20px',
-    }
-    data.push(dataItem)
+const textItems = document.querySelector('.items')
+const fontSizeInput = document.querySelector('.font-size')
+const fontColorInput = document.querySelector('.font-color')
+const fontWeightInput = document.querySelector('#weight')
+const fontStyletInput = document.querySelector('#style')
+const letterSpacingInput = document.querySelector('.letter-spacing')
+const lineHeightInput = document.querySelector('.line-height')
+const resetButton = document.querySelector('#reset')
+
+// check the localstorage and set default data settings
+const setDefaultSettings= () => {
+  data = {
+    size: '14px',
+    color: '#000000',
+    weight: 'normal',
+    style: 'normal',
+    letterSpacing: '0px',
+    lineHeight: '14px'
   }
   localStorage.setItem('fontControls', JSON.stringify(data))
 }
-
 if (data === null) {
-  setDefauldData()
+  setDefaultSettings()
 }
 
-class Regulator {
-  constructor() {
-
+// set font settings from localstorage
+const setFontSettings = () => {
+  textItems.style.fontSize = data.size
+  fontSizeInput.value = data.size.replace('px', '')
+  textItems.style.color = data.color
+  fontColorInput.value = data.color
+  textItems.style.fontWeight = data.weight
+  if (fontWeightInput.options[0].value === data.weight) {
+    fontWeightInput.options[0].selected = true
   }
-
-  createFontSizeInput() {
-    for (let i = 0; i < item.length; i++) {
-      const fontSizeInput = document.createElement('input');
-      const div = document.createElement('div');
-      div.innerHTML = 'Font Size: '
-      div.setAttribute('class', 'font-size')
-      fontSizeInput.setAttribute('type', 'number');
-      fontSizeInput.setAttribute('min', '8');
-      fontSizeInput.setAttribute('max', '72');
-      fontSizeInput.setAttribute('value', data[i].fontSize.replace('px', ''));
-      itemText[i].style.fontSize = data[i].fontSize
-      fontSizeInput.addEventListener('change', (event) => {
-        const fontSize = `${event.target.value}px`
-        itemText[i].style.fontSize = fontSize
-        data[i].fontSize = fontSize
-        localStorage.setItem('fontControls', JSON.stringify(data))
-      })
-      itemText[i].after(div)
-      div.append(fontSizeInput)
-    }
+  if (fontWeightInput.options[1].value === data.weight) {
+    fontWeightInput.options[1].selected = true
   }
-
-  createFontColorInput() {
-    for (let i = 0; i < item.length; i++) {
-      const div = document.createElement('div');
-      div.innerHTML = 'Color: '
-      div.setAttribute('class', 'font-color')
-      const fontColorInput = document.createElement('input');
-      fontColorInput.setAttribute('type', 'color');
-      fontColorInput.setAttribute('value', data[i].fontColor);
-      itemText[i].style.color = data[i].fontColor
-      fontColorInput.addEventListener('change', (event) => {
-        itemText[i].style.color = event.target.value
-        data[i].fontColor = event.target.value
-        localStorage.setItem('fontControls', JSON.stringify(data))
-      })
-      itemText[i].after(div)
-      div.append(fontColorInput)
-    }
+  if (fontWeightInput.options[2].value === data.weight) {
+    fontWeightInput.options[2].selected = true
   }
-
-  createFontWeightInput() {
-    for (let i = 0; i < item.length; i++) {
-      const div = document.createElement('div');
-      div.innerHTML = 'Weight: '
-      div.setAttribute('class', 'font-weight')
-
-      const fontWeightInput = document.createElement('select');
-      fontWeightInput.setAttribute('id', `fontWeight${i}`);
-      itemText[i].style.fontWeight = data[i].fontWeight
-
-      let thin = new Option('Thin', '100');
-      fontWeightInput.append(thin);
-
-      let normal = new Option('Normal', '400');
-      fontWeightInput.append(normal);
-
-      let bold = new Option('Bold', '900');
-      fontWeightInput.append(bold);
-
-      if (data[i].fontWeight == 900 || data[i].fontWeight === 'bold') {
-        bold.selected = true
-      }
-      if (data[i].fontWeight == 400 || data[i].fontWeight === 'normal') {
-        normal.selected = true
-      }
-      if (data[i].fontWeight == 100 || data[i].fontWeight === 'thin') {
-        thin.selected = true
-      }
-
-      fontWeightInput.addEventListener('change', (event) => {
-        itemText[i].style.fontWeight = event.target.value
-        data[i].fontWeight = event.target.value
-        localStorage.setItem('fontControls', JSON.stringify(data))
-      })
-      itemText[i].after(div)
-      div.append(fontWeightInput)
-    }
-
+  textItems.style.fontStyle = data.style
+  if (fontStyletInput.options[0].value === data.style) {
+    fontStyletInput.options[0].selected = true
   }
-
-  createFontStyleInput() {
-    for (let i = 0; i < item.length; i++) {
-      const div = document.createElement('div');
-      div.innerHTML = 'Style: '
-      div.setAttribute('class', 'font-style')
-
-      const fontStyleInput = document.createElement('select');
-      fontStyleInput.setAttribute('id', `fontStyle${i}`);
-      itemText[i].style.fontStyle = data[i].fontStyle
-
-      let normal = new Option('Normal', 'normal');
-      fontStyleInput.append(normal);
-
-      let italic = new Option('Italic', 'italic')
-      fontStyleInput.append(italic);
-
-      if (data[i].fontStyle == 'normal') {
-        normal.selected = true
-      } else {
-        italic.selected = true
-      }
-
-      fontStyleInput.addEventListener('change', (event) => {
-        itemText[i].style.fontStyle = event.target.value
-
-        data[i].fontStyle = event.target.value
-        localStorage.setItem('fontControls', JSON.stringify(data))
-      })
-      itemText[i].after(div)
-      div.append(fontStyleInput)
-    }
+  if (fontStyletInput.options[1].value === data.style) {
+    fontStyletInput.options[1].selected = true
   }
-
-  createLetterSpacingInput() {
-    for (let i = 0; i < item.length; i++) {
-      const div = document.createElement('div');
-      div.innerHTML = 'Letter Spacing: '
-      div.setAttribute('class', 'letter-spacing')
-
-      const letterSpacingInput = document.createElement('input');
-      itemText[i].style.letterSpacing = data[i].letterSpacing
-      letterSpacingInput.setAttribute('value', data[i].letterSpacing.replace('px', ''));
-      letterSpacingInput.setAttribute('type', 'number');
-      letterSpacingInput.setAttribute('min', '0');
-      letterSpacingInput.setAttribute('max', '72');
-      letterSpacingInput.addEventListener('change', (event) => {
-        itemText[i].style.letterSpacing = `${event.target.value}px`
-        data[i].letterSpacing = `${event.target.value}px`
-        localStorage.setItem('fontControls', JSON.stringify(data))
-      })
-      itemText[i].after(div)
-      div.append(letterSpacingInput)
-    }
-  }
-
-  createLineHeightInput() {
-    for (let i = 0; i < item.length; i++) {
-      const div = document.createElement('div');
-      div.innerHTML = 'Line Height: '
-      div.setAttribute('class', 'line-height')
-
-      const LineHeightInput = document.createElement('input');
-      itemText[i].style.lineHeight = data[i].lineHeight
-      LineHeightInput.setAttribute('type', 'number');
-      LineHeightInput.setAttribute('min', '0');
-      LineHeightInput.setAttribute('max', '100');
-      LineHeightInput.setAttribute('value', data[i].lineHeight.replace('px', ''));
-      LineHeightInput.addEventListener('change', (event) => {
-        itemText[i].style.lineHeight = `${event.target.value}px`
-        data[i].lineHeight = `${event.target.value}px`
-        localStorage.setItem('fontControls', JSON.stringify(data))
-      })
-      itemText[i].after(div)
-      div.append(LineHeightInput)
-    }
-  }
-
-  resetSettings(id) {
-    const fontSizeInput = document.querySelectorAll('.font-size > input')
-    const fontColorInput = document.querySelectorAll('.font-color > input')
-    const fontWeightInput = document.querySelectorAll('.font-weight > select')
-    const fontStyleInput = document.querySelectorAll('.font-style > select')
-    const letterSpacingInput = document.querySelectorAll('.letter-spacing > input')
-    const lineHeightInput = document.querySelectorAll('.line-height > input')
-
-    itemText[id].style.fontSize = '14px'
-    data[id].fontSize = '14px'
-    fontSizeInput[id].value = 14
-
-    itemText[id].style.color = '#000000'
-    data[id].fontColor = '#000000'
-    fontColorInput[id].value = '#000000'
-
-    itemText[id].style.fontWeight = 400
-    data[id].fontWeight = 400
-    fontWeightInput[id].options[1].selected = true    
-
-    itemText[id].style.fontStyle = 'normal'
-    data[id].fontStyle = 'normal'
-    fontStyleInput[id].options[0].selected = true
-
-    itemText[id].style.letterSpacing = '0px'
-    data[id].letterSpacing = '0px'
-    letterSpacingInput[id].value = 0
-
-    itemText[id].style.lineHeight = '20px'
-    data[id].lineHeight = '20px'
-    lineHeightInput[id].value = 20
-
-    localStorage.setItem('fontControls', JSON.stringify(data))
-  }
-
-  createResetButton() {
-    for (let i = 0; i < item.length; i++) {
-      const resetButton = document.createElement('button');
-      resetButton.innerHTML = 'Reset'
-      resetButton.setAttribute('value', 'reset');
-      item[i].append(resetButton)
-      resetButton.addEventListener('click', (event) => {
-        this.resetSettings(data[i].id)
-      })
-    }
-  }
-
-  createRegButtons() {
-    this.createFontSizeInput()
-    this.createFontColorInput()
-    this.createFontWeightInput()
-    this.createFontStyleInput()
-    this.createLetterSpacingInput()
-    this.createLineHeightInput()
-    this.createResetButton()
-  }
+  textItems.style.letterSpacing = data.letterSpacing
+  letterSpacingInput.value = data.letterSpacing.replace('px', '')
+  textItems.style.lineHeight = data.lineHeight
+  lineHeightInput.value = data.lineHeight.replace('px', '')
 }
 
-const controls = new Regulator()
-controls.createRegButtons()
+// set size value to localstorage and apply new settings
+fontSizeInput.addEventListener('change', (event) => {
+  const sizeValue = `${event.target.value}px`
+  data.size = sizeValue
+  localStorage.setItem('fontControls', JSON.stringify(data))
+  textItems.style.fontSize = data.size
+})
+
+// set color value and apply new settings
+fontColorInput.addEventListener('change', (event) => {
+  const colorValue = event.target.value
+  data.color = colorValue
+  localStorage.setItem('fontControls', JSON.stringify(data))
+  textItems.style.color = data.color
+})
+
+// set weight value and apply new settings
+fontWeightInput.addEventListener('change', (event) => {
+  const weightValue = fontWeightInput.value
+  data.weight = weightValue
+  localStorage.setItem('fontControls', JSON.stringify(data))
+  textItems.style.fontWeight = data.weight
+})
+
+// set style value and apply new settings
+fontStyletInput.addEventListener('change', (event) => {
+  const styleValue = fontStyletInput.value
+  data.style = styleValue
+  localStorage.setItem('fontControls', JSON.stringify(data))
+  textItems.style.fontStyle = data.style
+})
+
+// set letter-spacing value to localstorage and apply new settings
+letterSpacingInput.addEventListener('change', (event) => {
+  const letterSpacingValue = `${event.target.value}px`
+  data.letterSpacing = letterSpacingValue
+  localStorage.setItem('fontControls', JSON.stringify(data))
+  textItems.style.letterSpacing = data.letterSpacing
+})
+
+// set line-height value to localstorage and apply new settings
+lineHeightInput.addEventListener('change', (event) => {
+  const lineHeightValue = `${event.target.value}px`
+  data.lineHeight = lineHeightValue
+  localStorage.setItem('fontControls', JSON.stringify(data))
+  textItems.style.lineHeight = data.lineHeight
+})
+
+// reset font styles
+resetButton.addEventListener('click', (event) => {
+  setDefaultSettings()
+  setFontSettings()
+})
+
+setFontSettings()
