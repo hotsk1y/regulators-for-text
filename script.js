@@ -1,16 +1,14 @@
-let data = JSON.parse(localStorage.getItem('fontControls'))
-
 const textItems = document.querySelector('.items')
-const fontSizeInput = document.querySelector('.font-size')
-const fontColorInput = document.querySelector('.font-color')
-const fontWeightInput = document.querySelector('#weight')
-const fontStyletInput = document.querySelector('#style')
-const letterSpacingInput = document.querySelector('.letter-spacing')
-const lineHeightInput = document.querySelector('.line-height')
+const fontSizeInput = document.querySelector('#font-size')
+const fontColorInput = document.querySelector('#font-color')
+const fontWeightInput = document.querySelector('#font-weight')
+const fontStyletInput = document.querySelector('#font-style')
+const letterSpacingInput = document.querySelector('#letter-spacing')
+const lineHeightInput = document.querySelector('#line-height')
 const resetButton = document.querySelector('#reset')
 
-// check the localstorage and set default data settings
-const setDefaultSettings= () => {
+// set default data settings
+const setDefaultSettings = () => {
   data = {
     size: '14px',
     color: '#000000',
@@ -21,9 +19,16 @@ const setDefaultSettings= () => {
   }
   localStorage.setItem('fontControls', JSON.stringify(data))
 }
-if (data === null) {
-  setDefaultSettings()
+
+// get localstorage data
+const getLocalStorageData = () => {
+  data = JSON.parse(localStorage.getItem('fontControls'))
+  if (data == null) {
+    setDefaultSettings()
+  }
+  return data
 }
+getLocalStorageData()
 
 // set font settings from localstorage
 const setFontSettings = () => {

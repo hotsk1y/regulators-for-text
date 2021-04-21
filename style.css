@@ -7,11 +7,20 @@
   font-family: 'Roboto', sans-serif;
 }
 
+body{
+  display: flex;
+  height: 100%;
+}
+
+.items{
+  background-color: #ccc;
+  width: 1200px;
+  height: 100%;
+}
 
 .item{
   /* margin-bottom: 30px; */
   padding: 20px;
-  background-color: #ccc;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -23,7 +32,11 @@
 }
 
 .controls{
+  
   display: flex;
+  flex-direction: column;
   margin: 20px;
-  justify-content: space-between;
+}
+.controls div{
+  margin-bottom: 20px;
 }

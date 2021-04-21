@@ -45,24 +45,26 @@
   </div>
 
   <div class="controls">
-    <div>Size: <input type="number" min="8" max="72" class="font-size" value="14"></input></div>
-    <div>Color: <input type="color" value="#000000" class="font-color"></input></div>
-    <div>Weight:
-      <select id="weight">
+    <div>
+      <label for="font-size">Size:</label> <input type="number" min="8" max="72" id="font-size" value="14">
+    </div>
+    <div><label for="font-color">Color:</label> <input type="color" value="#000000" id="font-color"></div>
+    <div><label for="font-weight">Weight:</label>
+      <select id="font-weight">
         <option value="lighter">Thin</option>
         <option value="normal">Normal</option>
         <option value="bold">Bold</option>
       </select>
     </div>
     <div>
-      Style:
-      <select id="style">
+      <label for="font-style">Style:</label>
+      <select id="font-style">
         <option value="normal" selected>Normal</option>
         <option value="italic">Italic</option>
       </select>
     </div>
-    <div>Letter Spacing: <input type="number" min="0" max="10" class="letter-spacing" value="0"></input></div>
-    <div>Line Heigh: <input type="number" min="5" max="72" class="line-height" value="14"></input></div>
+    <div><label for="letter-spacing">Letter Spacing:</label> <input type="number" min="0" max="10" id="letter-spacing" value="0"></div>
+    <div><label for="line-height">Line Heigh:</label> <input type="number" min="5" max="72" id="line-height" value="14"></div>
     <div><button id="reset">Reset</button></div>
   </div>
 
