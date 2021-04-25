@@ -7,7 +7,6 @@ const letterSpacingInput = document.querySelector('#letter-spacing')
 const lineHeightInput = document.querySelector('#line-height')
 const resetButton = document.querySelector('#reset')
 
-// set default data settings
 const setDefaultSettings = () => {
   data = {
     size: '14px',
@@ -18,41 +17,31 @@ const setDefaultSettings = () => {
     lineHeight: '14px'
   }
   localStorage.setItem('fontControls', JSON.stringify(data))
+  return data
 }
 
-// get localstorage data
 const getLocalStorageData = () => {
-  data = JSON.parse(localStorage.getItem('fontControls'))
-  if (data == null) {
-    setDefaultSettings()
+  try {
+    data = JSON.parse(localStorage.getItem('fontControls'))
+    if (data == null) {
+      setDefaultSettings()      
+    }
+  } catch (error) {
+    console.log(error)
   }
   return data
 }
-getLocalStorageData()
+data = getLocalStorageData()
 
-// set font settings from localstorage
 const setFontSettings = () => {
   textItems.style.fontSize = data.size
   fontSizeInput.value = data.size.replace('px', '')
   textItems.style.color = data.color
   fontColorInput.value = data.color
   textItems.style.fontWeight = data.weight
-  if (fontWeightInput.options[0].value === data.weight) {
-    fontWeightInput.options[0].selected = true
-  }
-  if (fontWeightInput.options[1].value === data.weight) {
-    fontWeightInput.options[1].selected = true
-  }
-  if (fontWeightInput.options[2].value === data.weight) {
-    fontWeightInput.options[2].selected = true
-  }
+  fontWeightInput.value = data.weight
   textItems.style.fontStyle = data.style
-  if (fontStyletInput.options[0].value === data.style) {
-    fontStyletInput.options[0].selected = true
-  }
-  if (fontStyletInput.options[1].value === data.style) {
-    fontStyletInput.options[1].selected = true
-  }
+  fontStyletInput.value = data.style
   textItems.style.letterSpacing = data.letterSpacing
   letterSpacingInput.value = data.letterSpacing.replace('px', '')
   textItems.style.lineHeight = data.lineHeight
