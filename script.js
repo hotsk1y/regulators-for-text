@@ -1,18 +1,19 @@
 const textItems = document.querySelector('.items')
-const fontSizeInput = document.querySelector('#font-size')
-const fontColorInput = document.querySelector('#font-color')
-const fontWeightInput = document.querySelector('#font-weight')
-const fontStyletInput = document.querySelector('#font-style')
-const letterSpacingInput = document.querySelector('#letter-spacing')
-const lineHeightInput = document.querySelector('#line-height')
+const fontSizeInput = document.querySelector('#fontSize')
+const fontColorInput = document.querySelector('#color')
+const fontWeightInput = document.querySelector('#fontWeight')
+const fontStyletInput = document.querySelector('#fontStyle')
+const letterSpacingInput = document.querySelector('#letterSpacing')
+const lineHeightInput = document.querySelector('#lineHeight')
 const resetButton = document.querySelector('#reset')
+const inputControls = document.querySelectorAll('.inputControl')
 
 const setDefaultSettings = () => {
   data = {
-    size: '14px',
+    fontSize: '14px',
     color: '#000000',
-    weight: 'normal',
-    style: 'normal',
+    fontWeight: 'normal',
+    fontStyle: 'normal',
     letterSpacing: '0px',
     lineHeight: '14px'
   }
@@ -24,7 +25,7 @@ const getLocalStorageData = () => {
   try {
     data = JSON.parse(localStorage.getItem('fontControls'))
     if (data == null) {
-      setDefaultSettings()      
+      setDefaultSettings()
     }
   } catch (error) {
     console.log(error)
@@ -34,67 +35,33 @@ const getLocalStorageData = () => {
 data = getLocalStorageData()
 
 const setFontSettings = () => {
-  textItems.style.fontSize = data.size
-  fontSizeInput.value = data.size.replace('px', '')
+  textItems.style.fontSize = data.fontSize
+  fontSizeInput.value = data.fontSize.replace('px', '')
   textItems.style.color = data.color
   fontColorInput.value = data.color
-  textItems.style.fontWeight = data.weight
-  fontWeightInput.value = data.weight
-  textItems.style.fontStyle = data.style
-  fontStyletInput.value = data.style
+  textItems.style.fontWeight = data.fontWeight
+  fontWeightInput.value = data.fontWeight
+  textItems.style.fontStyle = data.fontStyle
+  fontStyletInput.value = data.fontStyle
   textItems.style.letterSpacing = data.letterSpacing
   letterSpacingInput.value = data.letterSpacing.replace('px', '')
   textItems.style.lineHeight = data.lineHeight
   lineHeightInput.value = data.lineHeight.replace('px', '')
 }
 
-// set size value to localstorage and apply new settings
-fontSizeInput.addEventListener('change', (event) => {
-  const sizeValue = `${event.target.value}px`
-  data.size = sizeValue
-  localStorage.setItem('fontControls', JSON.stringify(data))
-  textItems.style.fontSize = data.size
-})
-
-// set color value and apply new settings
-fontColorInput.addEventListener('change', (event) => {
-  const colorValue = event.target.value
-  data.color = colorValue
-  localStorage.setItem('fontControls', JSON.stringify(data))
-  textItems.style.color = data.color
-})
-
-// set weight value and apply new settings
-fontWeightInput.addEventListener('change', (event) => {
-  const weightValue = fontWeightInput.value
-  data.weight = weightValue
-  localStorage.setItem('fontControls', JSON.stringify(data))
-  textItems.style.fontWeight = data.weight
-})
-
-// set style value and apply new settings
-fontStyletInput.addEventListener('change', (event) => {
-  const styleValue = fontStyletInput.value
-  data.style = styleValue
-  localStorage.setItem('fontControls', JSON.stringify(data))
-  textItems.style.fontStyle = data.style
-})
-
-// set letter-spacing value to localstorage and apply new settings
-letterSpacingInput.addEventListener('change', (event) => {
-  const letterSpacingValue = `${event.target.value}px`
-  data.letterSpacing = letterSpacingValue
-  localStorage.setItem('fontControls', JSON.stringify(data))
-  textItems.style.letterSpacing = data.letterSpacing
-})
-
-// set line-height value to localstorage and apply new settings
-lineHeightInput.addEventListener('change', (event) => {
-  const lineHeightValue = `${event.target.value}px`
-  data.lineHeight = lineHeightValue
-  localStorage.setItem('fontControls', JSON.stringify(data))
-  textItems.style.lineHeight = data.lineHeight
-})
+// track changes of each control
+for (let i = 0; i < inputControls.length; i++) {
+  const styleValue = inputControls[i].id
+  inputControls[i].addEventListener('change', event => {
+    if (inputControls[i].dataset.type === 'pixel') {
+      data[styleValue] = `${event.target.value}px`
+    } else {
+      data[styleValue] = event.target.value
+    }
+    localStorage.setItem('fontControls', JSON.stringify(data))
+    textItems.style[styleValue] = data[styleValue]
+  })
+}
 
 // reset font styles
 resetButton.addEventListener('click', (event) => {

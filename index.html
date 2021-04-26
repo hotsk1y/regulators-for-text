@@ -46,11 +46,11 @@
 
   <div class="controls">
     <div>
-      <label for="font-size">Size:</label> <input type="number" min="8" max="72" id="font-size" value="14">
+      <label for="font-size">Size:</label> <input class="inputControl" data-type='pixel' type="number" min="8" max="72" id="fontSize" value="14">
     </div>
-    <div><label for="font-color">Color:</label> <input type="color" value="#000000" id="font-color"></div>
+    <div><label for="font-color">Color:</label> <input class="inputControl" data-type='color' type="color" value="#000000" id="color"></div>
     <div><label for="font-weight">Weight:</label>
-      <select id="font-weight">
+      <select data-type='select' class="inputControl" id="fontWeight">
         <option value="lighter">Thin</option>
         <option value="normal">Normal</option>
         <option value="bold">Bold</option>
@@ -58,13 +58,13 @@
     </div>
     <div>
       <label for="font-style">Style:</label>
-      <select id="font-style">
+      <select data-type='select' class="inputControl" id="fontStyle">
         <option value="normal" selected>Normal</option>
         <option value="italic">Italic</option>
       </select>
     </div>
-    <div><label for="letter-spacing">Letter Spacing:</label> <input type="number" min="0" max="10" id="letter-spacing" value="0"></div>
-    <div><label for="line-height">Line Heigh:</label> <input type="number" min="5" max="72" id="line-height" value="14"></div>
+    <div><label for="letter-spacing">Letter Spacing:</label> <input data-type='pixel' class="inputControl" type="number" min="0" max="10" id="letterSpacing" value="0"></div>
+    <div><label for="line-height">Line Heigh:</label> <input data-type='pixel' class="inputControl" type="number" min="5" max="72" id="lineHeight" value="14"></div>
     <div><button id="reset">Reset</button></div>
   </div>
 
