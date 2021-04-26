@@ -1,10 +1,4 @@
 const textItems = document.querySelector('.items')
-const fontSizeInput = document.querySelector('#fontSize')
-const fontColorInput = document.querySelector('#color')
-const fontWeightInput = document.querySelector('#fontWeight')
-const fontStyletInput = document.querySelector('#fontStyle')
-const letterSpacingInput = document.querySelector('#letterSpacing')
-const lineHeightInput = document.querySelector('#lineHeight')
 const resetButton = document.querySelector('#reset')
 const inputControls = document.querySelectorAll('.inputControl')
 
@@ -35,18 +29,15 @@ const getLocalStorageData = () => {
 data = getLocalStorageData()
 
 const setFontSettings = () => {
-  textItems.style.fontSize = data.fontSize
-  fontSizeInput.value = data.fontSize.replace('px', '')
-  textItems.style.color = data.color
-  fontColorInput.value = data.color
-  textItems.style.fontWeight = data.fontWeight
-  fontWeightInput.value = data.fontWeight
-  textItems.style.fontStyle = data.fontStyle
-  fontStyletInput.value = data.fontStyle
-  textItems.style.letterSpacing = data.letterSpacing
-  letterSpacingInput.value = data.letterSpacing.replace('px', '')
-  textItems.style.lineHeight = data.lineHeight
-  lineHeightInput.value = data.lineHeight.replace('px', '')
+  for (let i = 0; i < inputControls.length; i++) {
+    const styleValue = inputControls[i].id
+    if (inputControls[i].dataset.type === 'pixel') {
+      inputControls[i].value = data[styleValue].replace('px', '')
+    } else {
+      inputControls[i].value = data[styleValue]
+    }
+    textItems.style[styleValue] = data[styleValue]
+  }
 }
 
 // track changes of each control
