@@ -2,31 +2,30 @@ const textItems = document.querySelector('.items')
 const resetButton = document.querySelector('#reset')
 const inputControls = document.querySelectorAll('.inputControl')
 
-const setDefaultSettings = () => {
-  data = {
-    fontSize: '14px',
-    color: '#000000',
-    fontWeight: 'normal',
-    fontStyle: 'normal',
-    letterSpacing: '0px',
-    lineHeight: '14px'
-  }
-  localStorage.setItem('fontControls', JSON.stringify(data))
-  return data
-}
-
 const getLocalStorageData = () => {
   try {
     data = JSON.parse(localStorage.getItem('fontControls'))
     if (data == null) {
-      setDefaultSettings()
+      data = {
+        fontSize: '14px',
+        color: '#000000',
+        fontWeight: 'normal',
+        fontStyle: 'normal',
+        letterSpacing: '0px',
+        lineHeight: '14px'
+      }
+      localStorage.setItem('fontControls', JSON.stringify(data))
     }
   } catch (error) {
     console.log(error)
   }
   return data
 }
-data = getLocalStorageData()
+getLocalStorageData()
+
+const setLocalStorageData = (newData) => {
+  localStorage.setItem('fontControls', JSON.stringify(newData))
+}
 
 const setFontSettings = () => {
   for (let i = 0; i < inputControls.length; i++) {
@@ -49,15 +48,23 @@ for (let i = 0; i < inputControls.length; i++) {
     } else {
       data[styleValue] = event.target.value
     }
-    localStorage.setItem('fontControls', JSON.stringify(data))
+    setLocalStorageData(data)
     textItems.style[styleValue] = data[styleValue]
   })
 }
 
 // reset font styles
 resetButton.addEventListener('click', (event) => {
-  setDefaultSettings()
-  setFontSettings()
+  data = {
+    fontSize: '14px',
+    color: '#000000',
+    fontWeight: 'normal',
+    fontStyle: 'normal',
+    letterSpacing: '0px',
+    lineHeight: '14px'
+  }
+  localStorage.setItem('fontControls', JSON.stringify(data))
+  setFontSettings(data)
 })
 
 setFontSettings()
