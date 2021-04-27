@@ -11,13 +11,12 @@ const defaultStyles = {
   lineHeight: '14px'
 }
 
-const getLocalStorageData = (defaultData) => {
-  const str = JSON.parse(localStorage.getItem('fontControls'))  
+const getLocalStorageData = (defaultData) => {  
+  const str = localStorage.getItem('fontControls')
   try {
-    if (str === null) {
-      return defaultData
-    } else {
-      return str
+    return {
+      ...defaultData,
+      ...JSON.parse(str)
     }
   } catch (error) {
     return defaultData
